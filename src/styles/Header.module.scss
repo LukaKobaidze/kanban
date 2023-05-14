@@ -1,0 +1,44 @@
+.header {
+  position: fixed;
+  display: flex;
+  background-color: var(--clr-5);
+  border-bottom: 1px solid var(--clr-6);
+  width: 100%;
+  height: 96px;
+}
+
+.logo-wrapper {
+  flex-shrink: 0;
+  width: 209px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--clr-6);
+  transition: width 130ms;
+}
+
+.header.sidebar-expanded .logo-wrapper {
+  width: 292px;
+  transition: width 130ms;
+  transition-delay: 70ms;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.btn-add-task {
+  margin-left: auto;
+}
+
+.btn-ellipsis {
+  background: none;
+  border: none;
+  padding: 12px;
+  margin-left: 12px;
+  cursor: pointer;
+}

@@ -1,0 +1,66 @@
+.container {
+  padding: 32px;
+  width: 480px;
+}
+
+.title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-ellipsis {
+  padding: 5px 12px;
+  margin-right: -12px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.description {
+  color: var(--clr-7);
+  margin-top: 24px;
+}
+
+.text-subtasks {
+  display: block;
+  margin-top: 24px;
+}
+
+.subtasks-list {
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.subtask-item {
+  list-style: none;
+
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
+}
+
+.subtask {
+  display: flex;
+  align-items: center;
+  background-color: var(--clr-4);
+  padding: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover:not(&--checked) {
+    background-color: rgba(99, 95, 199, 0.25);
+  }
+
+  &__title {
+    margin-left: 16px;
+    color: #ffffff;
+  }
+
+  &--checked {
+    & > .subtask__title {
+      opacity: 0.5;
+      text-decoration: line-through;
+    }
+  }
+}

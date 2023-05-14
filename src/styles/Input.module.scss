@@ -1,0 +1,32 @@
+.input {
+  border: 1px solid rgba(130, 143, 163, 0.25);
+  background-color: var(--clr-5);
+  padding: 8px 16px 9px 16px;
+  border-radius: 4px;
+}
+
+.checkbox-wrapper {
+}
+
+.checkbox {
+  appearance: none;
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-color: var(--clr-5);
+  accent-color: var(--clr-1);
+  border-radius: 2px;
+  border: 1px solid rgba(130, 143, 163, 0.248914);
+
+  &:hover {
+    border-color: rgba(130, 143, 163, 0.5);
+  }
+
+  &:active {
+    border-color: rgba(130, 143, 163, 1);
+  }
+
+  &:checked {
+    appearance: auto;
+  }
+}

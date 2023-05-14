@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap');
+
+:root {
+  --clr-1: #635fc7;
+  --clr-2: #a8a4ff;
+  --clr-3: #000112;
+  --clr-4: #20212c;
+  --clr-5: #2b2c37;
+  --clr-6: #3e3f4e;
+  --clr-7: #828fa3;
+  --clr-8: #e4ebfa;
+  --clr-9: #f4f7fd;
+  --clr-10: #ffffff;
+  --clr-11: #ea5555;
+  --clr-12: #ff9898;
+  --clr-btn-1: var(--clr-1);
+  --clr-btn-1-hover: var(--clr-2);
+  --clr-btn-2: var(--clr-1);
+  --clr-btn-2-hover: var(--clr-2);
+  --clr-btn-3: #ffffff;
+  --clr-btn-3-hover: #ffffff;
+  --clr-btn-4: var(--clr-11);
+  --clr-btn-4-hover: var(--clr-12);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--clr-10);
+  background-color: var(--clr-4);
+}   
+
+#root {
+  min-height: 100vh;
+  display: flex;
+}
+
+::-webkit-scrollbar {
+  width: 0.5em;
+  height: 0.5em;
+
+  &-thumb {
+    background: hsl(216, 15%, 55%);
+    border-radius: 100vw;
+    
+    &:hover {
+      background: hsl(216, 15%, 70%);
+
+    }
+  }
+}

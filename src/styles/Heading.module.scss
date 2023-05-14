@@ -1,0 +1,24 @@
+.heading {
+  font-weight: bold;
+
+  &--XL {
+    font-size: 1.5em;
+    line-height: 30px;
+  }
+
+  &--L {
+    font-size: 1.125em;
+    line-height: 23px;
+  }
+
+  &--M {
+    font-size: 0.9375em;
+    line-height: 19px;
+  }
+
+  &--S {
+    font-size: 0.75em;
+    line-height: 15px;
+    font-kerning: 2.4px;
+  }
+}

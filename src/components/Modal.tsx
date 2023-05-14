@@ -29,7 +29,7 @@ export default function Modal(props: Props) {
       <div className={styles['wrapper-backdrop']}>
         <AlertOutsideClick
           onOutsideClick={onCloseModal}
-          className={`${styles.modal} ${className || ''}`}
+          className={`${styles.modal} ${className}`}
           {...restProps}
         >
           {children}

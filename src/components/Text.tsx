@@ -12,7 +12,7 @@ export default function Text(props: Props) {
 
   return (
     <DynamicComponent
-      className={`${styles.text} ${styles[`text--${variant}`]} ${className || ''}`}
+      className={`${styles.text} ${styles[`text--${variant}`]} ${className}`}
       {...restProps}
     >
       {children}

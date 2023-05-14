@@ -5,6 +5,7 @@
   border-bottom: 1px solid var(--clr-6);
   width: 100%;
   height: 96px;
+  z-index: 2;
 }
 
 .logo-wrapper {
@@ -41,4 +42,15 @@
   padding: 12px;
   margin-left: 12px;
   cursor: pointer;
+
+  &__dropdown {
+    width: 192px;
+    right: 0;
+    left: initial !important;
+    bottom: -18px !important;
+    transform: translateY(100%) !important;
+  }
+}
+.dropdown-deleteboard {
+  color: var(--clr-11) !important;
 }

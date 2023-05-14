@@ -9,9 +9,7 @@ export default function Button(props: Props) {
 
   return (
     <button
-      className={`${styles.button} ${styles[`button--${variant}`]} ${
-        className || ''
-      }`}
+      className={`${styles.button} ${styles[`button--${variant}`]} ${className}`}
       {...restProps}
     >
       {children}

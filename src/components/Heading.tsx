@@ -12,9 +12,7 @@ export default function Heading(props: Props) {
 
   return (
     <DynamicComponent
-      className={`${styles.heading} ${styles[`heading--${variant}`]} ${
-        className || ''
-      }`}
+      className={`${styles.heading} ${styles[`heading--${variant}`]} ${className}`}
       {...restProps}
     >
       {children}

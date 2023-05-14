@@ -7,9 +7,9 @@ export default function Input(props: Props) {
 
   const inputJSX = (
     <input
-      className={`${type === 'checkbox' ? styles.checkbox : styles.input} ${
-        className || ''
-      }`}
+      className={`${
+        type === 'checkbox' ? styles.checkbox : styles.input
+      } ${className}`}
       type={type}
       {...restProps}
     />

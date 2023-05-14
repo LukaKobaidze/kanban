@@ -2,6 +2,7 @@ import { IconVerticalEllipsis, LogoLight } from 'assets';
 import Heading from './Heading';
 import styles from 'styles/Header.module.scss';
 import Button from './Button';
+import Dropdown from './Dropdown';
 
 interface Props {
   boardName: string;
@@ -27,9 +28,18 @@ export default function Header(props: Props) {
         <Button variant="1" className={styles['btn-add-task']}>
           + Add New Task
         </Button>
-        <button className={styles['btn-ellipsis']}>
-          <IconVerticalEllipsis />
-        </button>
+        <Dropdown
+          items={[
+            { value: 'Edit Board' },
+            { value: 'Delete Board', className: styles['dropdown-deleteboard'] },
+          ]}
+          onSelect={() => {}}
+          className={styles['btn-ellipsis__dropdown']}
+        >
+          <button className={styles['btn-ellipsis']}>
+            <IconVerticalEllipsis />
+          </button>
+        </Dropdown>
       </div>
     </header>
   );

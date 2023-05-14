@@ -15,6 +15,15 @@
   border: none;
   background: none;
   cursor: pointer;
+
+  &__dropdown {
+    left: calc(50% + 6px);
+    width: 192px;
+  }
+}
+
+.dropdown-deletetask {
+  color: var(--clr-11) !important;
 }
 
 .description {
@@ -62,5 +71,32 @@
       opacity: 0.5;
       text-decoration: line-through;
     }
+  }
+}
+
+.selection {
+  margin-top: 8px;
+  height: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: inherit;
+  background: none;
+  border: 1px solid rgba(130, 143, 163, 0.25);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #ffffff;
+  padding-left: 16px;
+  padding-right: 16.75px;
+  border-radius: 4px;
+
+  &.active {
+    border-color: var(--clr-1);
+  }
+
+  &__dropdown {
+    width: 100%;
   }
 }

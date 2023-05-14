@@ -1,10 +1,12 @@
+import { useState } from 'react';
 import styles from 'styles/ViewTask.module.scss';
 import Modal from './Modal';
 import { TaskType } from 'types';
 import Heading from './Heading';
 import Text from './Text';
 import Input from './Input';
-import { IconVerticalEllipsis } from 'assets';
+import { IconChevronDown, IconVerticalEllipsis } from 'assets';
+import Dropdown from './Dropdown';
 
 interface Props extends TaskType {
   status: string;
@@ -26,11 +28,15 @@ export default function ViewTask(props: Props) {
     onChangeTaskStatus,
   } = props;
 
+  const [statusSelection, setStatusSelection] = useState(false);
+
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChangeSubtaskCompleted(Number(e.currentTarget.value), e.currentTarget.checked);
   };
 
-  console.log(subtasks);
+  const handleEllipsisAction = (value: string) => {
+    console.log(value);
+  };
 
   return (
     <Modal onCloseModal={onCloseModal} className={styles.container}>
@@ -38,9 +44,18 @@ export default function ViewTask(props: Props) {
         <Heading level="2" variant="L" className={styles.title}>
           {title}
         </Heading>
-        <button className={styles['btn-ellipsis']}>
-          <IconVerticalEllipsis />
-        </button>
+        <Dropdown
+          items={[
+            { value: 'Edit Task' },
+            { value: 'Delete Task', className: styles['dropdown-deletetask'] },
+          ]}
+          onSelect={handleEllipsisAction}
+          className={styles['btn-ellipsis__dropdown']}
+        >
+          <button className={styles['btn-ellipsis']}>
+            <IconVerticalEllipsis />
+          </button>
+        </Dropdown>
       </div>
       <Text tag="p" variant="L" className={styles.description}>
         {description}
@@ -77,14 +92,20 @@ export default function ViewTask(props: Props) {
       <Text tag="span" variant="M">
         Current Status
       </Text>
-      <select
-        defaultValue={status}
-        onChange={(e) => onChangeTaskStatus(e.target.value)}
+      <Dropdown
+        className={styles['selection__dropdown']}
+        items={allStatuses.map((status) => ({ value: status }))}
+        onSelect={(val) => val !== status && onChangeTaskStatus(val)}
+        show={statusSelection}
+        setShow={setStatusSelection}
       >
-        {allStatuses.map((s) => (
-          <option key={s}>{s}</option>
-        ))}
-      </select>
+        <button
+          className={`${styles.selection} ${statusSelection ? styles.active : ''}`}
+        >
+          <span>{status}</span>
+          <IconChevronDown />
+        </button>
+      </Dropdown>
     </Modal>
   );
 }

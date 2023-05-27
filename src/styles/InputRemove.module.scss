@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+}
+
+.button {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--clr-gray);
+  margin-left: 8px;
+  margin-right: -8px;
+
+  &:focus-visible {
+    color: var(--clr-destructive);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: var(--clr-destructive);
+    }
+  }
+}

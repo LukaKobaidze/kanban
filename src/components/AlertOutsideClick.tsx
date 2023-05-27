@@ -1,15 +1,17 @@
 import { useEffect, useRef } from 'react';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  event: 'click' | 'mousedown';
   onOutsideClick: () => void;
-  shouldHandle?: boolean;
+  handleWhen?: boolean;
   ignore?: React.RefObject<Element>[];
 }
 
 export default function AlertOutsideClick(props: Props) {
   const {
+    event,
     ignore,
-    shouldHandle = true,
+    handleWhen = true,
     onOutsideClick,
     children,
     ...restProps
@@ -29,14 +31,14 @@ export default function AlertOutsideClick(props: Props) {
       }
     };
 
-    if (shouldHandle) {
-      document.addEventListener('mousedown', handleEvent);
+    if (handleWhen) {
+      document.addEventListener(event, handleEvent);
     } else {
-      document.removeEventListener('mousedown', handleEvent);
+      document.removeEventListener(event, handleEvent);
     }
 
-    return () => document.removeEventListener('mousedown', handleEvent);
-  }, [shouldHandle, onOutsideClick, ignore]);
+    return () => document.removeEventListener(event, handleEvent);
+  }, [handleWhen, onOutsideClick, ignore, event]);
 
   return (
     <div ref={ref} {...restProps}>

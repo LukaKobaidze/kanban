@@ -1,18 +1,24 @@
+import { forwardRef } from 'react';
 import styles from 'styles/Button.module.scss';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: '1' | '2' | '3' | '4';
+  variant: 'primaryL' | 'primaryS' | 'secondary' | 'destructive';
 }
+type Ref = HTMLButtonElement;
 
-export default function Button(props: Props) {
-  const { variant, className, children, ...restProps } = props;
+export default forwardRef<Ref, Props>(function Button(props, ref) {
+  const { variant, className, children, disabled, ...restProps } = props;
 
   return (
     <button
-      className={`${styles.button} ${styles[`button--${variant}`]} ${className}`}
+      ref={ref}
+      className={`${styles.button} ${styles[`button--${variant}`]} ${
+        disabled ? styles['button--disabled'] : ''
+      } ${className}`}
+      disabled={disabled}
       {...restProps}
     >
       {children}
     </button>
   );
-}
+});

@@ -1,0 +1,74 @@
+div.container {
+  padding-right: 0;
+  padding-left: 0;
+  padding-top: 0;
+
+  & > * {
+    padding-left: var(--modal-padding);
+  }
+}
+
+.heading-wrapper {
+  padding-top: 32px;
+  position: sticky;
+  top: -20px;
+  background-color: var(--clr-element);
+  padding-bottom: 12px;
+}
+
+.scrollbar-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 170px);
+  padding-right: var(--modal-padding);
+  overflow-y: auto;
+
+  & > * {
+    flex-shrink: 0;
+  }
+}
+
+.label {
+  margin-bottom: 8px;
+  margin-top: 24px;
+
+  &-name {
+    margin-top: 12px;
+  }
+}
+
+.columns-list {
+  list-style: none;
+}
+
+.column {
+  position: relative;
+  margin-bottom: 12px;
+
+  &__input {
+    padding-right: 37px;
+  }
+}
+
+.btn-add-column {
+  margin-bottom: 12px;
+}
+
+.btn-submit-wrapper {
+  margin-top: 14px;
+  padding-right: 32px;
+}
+
+.btn-submit {
+  width: 100%;
+}
+
+div.pickcolor {
+  position: absolute;
+  right: 35px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  height: 100%;
+  padding: 5px;
+}

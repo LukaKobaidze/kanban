@@ -1,38 +1,45 @@
+import { useEffect, useLayoutEffect, useRef } from 'react';
+import { Droppable } from 'react-beautiful-dnd';
 import {
   IconBoard,
-  IconDarkTheme,
+  IconDelete,
   IconHideSidebar,
-  IconLightTheme,
   IconShowSidebar,
-  LogoLight,
+  Logo,
 } from 'assets';
+import { ThemeType } from 'types';
+import { Text, Button, ThemeSwitch } from 'components';
 import styles from 'styles/Sidebar.module.scss';
-import Text from './Text';
-import Switch from './Switch';
-import { useEffect, useRef } from 'react';
 
 interface Props {
   expanded: boolean;
-  boards: string[];
+  boardNames: string[];
   boardActive: number;
+  draggingSourceId: string;
+  theme: ThemeType;
   setBoardActive: React.Dispatch<React.SetStateAction<number>>;
+  onToggleTheme: () => void;
   onShowSidebar: () => void;
   onHideSidebar: () => void;
-  onCreateNewBoard: () => void;
+  onCreateBoard: () => void;
 }
 
 export default function Sidebar(props: Props) {
   const {
     expanded,
-    boards,
+    boardNames,
     boardActive,
+    draggingSourceId,
+    theme,
     setBoardActive,
+    onToggleTheme,
     onHideSidebar,
     onShowSidebar,
-    onCreateNewBoard,
+    onCreateBoard,
   } = props;
 
   const hiddenDiv = useRef<HTMLDivElement>(null);
+  const activeBoardButton = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (expanded) {
@@ -40,51 +47,77 @@ export default function Sidebar(props: Props) {
     }
   }, [expanded]);
 
+  useLayoutEffect(() => {
+    activeBoardButton.current?.scrollIntoView();
+  }, [boardNames]);
+
   return (
     <aside className={`${styles.sidebar} ${expanded ? styles.open : ''}`}>
       <div className={styles.content}>
-        {/* Focus on invisible div to make keyboard navigation easier */}
+        {/* Focus on invisible div (when sidebar expanded) for keyboard navigation */}
         <div tabIndex={-1} ref={hiddenDiv} />
 
         <div className={styles['logo-wrapper']}>
-          <LogoLight />
+          <Logo />
         </div>
 
-        <div>
+        <div className={styles['boards-wrapper']}>
           <Text tag="p" variant="M" className={styles['text-allboards']}>
-            ALL BOARDS ({boards.length})
+            ALL BOARDS ({boardNames.length})
           </Text>
-          <ul>
-            {boards.map((name, i) => (
-              <li key={name} className={styles['board-item']}>
-                <button
-                  className={`${styles.button} ${
-                    i === boardActive ? styles.active : ''
-                  }`}
-                  onClick={() => setBoardActive(i)}
-                  disabled={!expanded}
-                >
-                  <IconBoard className={styles['button__icon']} />
-                  <span>{name}</span>
-                </button>
-              </li>
-            ))}
+          <ul className={styles['boards-list']}>
+            <div className={styles['boards-scrollable']}>
+              {boardNames.map((name, i) => (
+                <li key={name} className={styles['board-item']}>
+                  <Button
+                    ref={i === boardActive ? activeBoardButton : undefined}
+                    variant="primaryL"
+                    className={`${styles.button} ${
+                      i === boardActive ? styles.active : ''
+                    }`}
+                    onClick={() => setBoardActive(i)}
+                    disabled={!expanded}
+                  >
+                    <IconBoard className={styles['button__icon']} />
+                    <span className={styles['button__text']}>{name}</span>
+                  </Button>
+                </li>
+              ))}
+            </div>
             <li className={styles['board-item']}>
               <button
                 className={`${styles.button} ${styles['button--create']}`}
+                onClick={onCreateBoard}
                 disabled={!expanded}
               >
-                <IconBoard className={styles['button__icon']} />{' '}
+                <IconBoard className={styles['button__icon']} />
                 <span>+ Create New Board</span>
               </button>
             </li>
           </ul>
         </div>
-        <div className={styles.theme}>
-          <IconLightTheme />
-          <Switch on={true} disabled={!expanded} />
-          <IconDarkTheme />
-        </div>
+        <Droppable droppableId="delete">
+          {(provided, snapshot) => (
+            <div
+              className={`${styles['droppable-delete']} ${
+                draggingSourceId ? styles.show : ''
+              } ${snapshot.isDraggingOver ? styles.dragover : ''}`}
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              <IconDelete className={styles['droppable-delete__icon']} />
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+
+        <ThemeSwitch
+          on={theme === 'dark'}
+          onToggle={onToggleTheme}
+          disabled={!expanded}
+          className={styles['theme-switch']}
+        />
+
         <button
           onClick={onHideSidebar}
           className={`${styles.button} ${styles['btn-hide-sidebar']}`}

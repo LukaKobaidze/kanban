@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
-import AlertOutsideClick from './AlertOutsideClick';
-import styles from 'styles/Modal.module.scss';
 import FocusTrap from 'focus-trap-react';
+import { AlertOutsideClick } from 'components';
+import styles from 'styles/Modal.module.scss';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   onCloseModal: () => void;
+  ignoreKeyboardEscape?: boolean;
 }
 
 export default function Modal(props: Props) {
-  const { onCloseModal, className, children, ...restProps } = props;
+  const { onCloseModal, ignoreKeyboardEscape, className, children, ...restProps } =
+    props;
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -17,17 +19,22 @@ export default function Modal(props: Props) {
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
+    if (ignoreKeyboardEscape) {
+      document.removeEventListener('keydown', handleKeyDown);
+    } else {
+      document.addEventListener('keydown', handleKeyDown);
+    }
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onCloseModal]);
+  }, [ignoreKeyboardEscape, onCloseModal]);
 
   return (
-    <FocusTrap>
+    <FocusTrap focusTrapOptions={{ initialFocus: false }}>
       <div className={styles['wrapper-backdrop']}>
         <AlertOutsideClick
+          event="mousedown"
           onOutsideClick={onCloseModal}
           className={`${styles.modal} ${className}`}
           {...restProps}

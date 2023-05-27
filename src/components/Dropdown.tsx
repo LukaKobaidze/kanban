@@ -1,23 +1,29 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { AlertOutsideClick } from 'components';
 import styles from 'styles/Dropdown.module.scss';
-import AlertOutsideClick from './AlertOutsideClick';
 
 type Props = {
   items: Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>[];
   onSelect: (value: string) => void;
   classNameWrapper?: string;
   className?: string;
-  children?: React.ReactNode;
+  children?: React.ReactElement<HTMLButtonElement>;
 } & (
   | { show?: undefined }
   | { show: boolean; setShow: React.Dispatch<React.SetStateAction<boolean>> }
 );
 
+let latestWindowHeight = 0;
+let latestWindowWidth = 0;
+
 export default function Dropdown(props: Props) {
   const { items, onSelect, show, className, classNameWrapper, children } = props;
   const [itemFocused, setItemFocused] = useState<number | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [dropdownDirection, setDropdownDirection] = useState<'down' | 'up'>('down');
+  const [dropdownOffsetX, setDropdownOffsetX] = useState(0);
   const childrenRef = useRef<any[]>([]);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const updateShowState = useCallback(
     (val: React.SetStateAction<boolean>) => {
@@ -31,7 +37,51 @@ export default function Dropdown(props: Props) {
     [show]
   );
 
-  console.log({ showDropdown, show });
+  const updateDropdown = () => {
+    const dropdownContainer = dropdownRef.current;
+    if (!dropdownContainer) return;
+    const dropdownContainerRect = dropdownContainer.getBoundingClientRect();
+
+    // Dropdown Offset X
+    const windowWidth = window.innerWidth;
+    setDropdownOffsetX((state) => {
+      // Check Overflow RIGHT side
+      if (windowWidth !== latestWindowWidth) {
+        latestWindowWidth = windowWidth;
+
+        const overflowOffsetRight =
+          dropdownContainerRect.right - state - windowWidth + 10;
+
+        if (overflowOffsetRight > 0) {
+          return overflowOffsetRight * -1;
+        } else {
+          // Check Overflow LEFT side
+          const overflowOffsetLeft = (dropdownContainerRect.left + state) * -1;
+
+          if (overflowOffsetLeft > 0) {
+            return overflowOffsetLeft;
+          }
+        }
+        return 0;
+      }
+      return state;
+    });
+
+    // Dropdown Direction
+    const windowHeight = window.innerHeight;
+    if (windowHeight !== latestWindowHeight) {
+      latestWindowHeight = windowHeight;
+
+      const dropdownButton: HTMLElement = childrenRef.current[0];
+
+      const dropdownBottomPos =
+        dropdownButton.getBoundingClientRect().bottom +
+        (dropdownContainer.clientHeight || 0) +
+        20;
+
+      setDropdownDirection(dropdownBottomPos >= windowHeight ? 'up' : 'down');
+    }
+  };
 
   useEffect(() => {
     const element: HTMLElement = childrenRef.current[0];
@@ -50,6 +100,8 @@ export default function Dropdown(props: Props) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
+        const element: HTMLElement = childrenRef.current[0];
+        element.focus();
         updateShowState(false);
       }
 
@@ -72,25 +124,34 @@ export default function Dropdown(props: Props) {
       }
     };
 
+    updateDropdown();
     if (show || showDropdown) {
       document.addEventListener('keydown', handleKeyDown);
+      window.addEventListener('resize', updateDropdown);
     } else {
-      const element: HTMLElement = childrenRef.current[0];
-      element.focus();
       setItemFocused(null);
       document.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('resize', updateDropdown);
+      latestWindowHeight = 0;
+      latestWindowWidth = 0;
     }
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('resize', updateDropdown);
     };
   }, [items.length, show, showDropdown, updateShowState]);
 
+  const dropdownStyle = {
+    '--offsetX': dropdownOffsetX + 'px',
+  } as React.CSSProperties;
+
   return (
     <AlertOutsideClick
+      event="click"
       className={`${styles.container} ${classNameWrapper}`}
       onOutsideClick={() => updateShowState(false)}
-      shouldHandle={show || showDropdown}
+      handleWhen={show || showDropdown}
     >
       {React.Children.map(children, (child: any, index) =>
         React.cloneElement(child, {
@@ -98,26 +159,33 @@ export default function Dropdown(props: Props) {
         })
       )}
 
-      {(show || showDropdown) && (
-        <div className={`${styles.dropdown} ${className}`}>
-          {items.map(({ className, onClick, value, ...restProps }, i) => (
-            <input
-              ref={itemFocused === i ? (node) => node?.focus() : undefined}
-              key={String(value)}
-              type="button"
-              className={`${styles.button} ${className}`}
-              onClick={(e) => {
-                onSelect(String(value));
-                updateShowState(false);
-                onClick && onClick(e);
-              }}
-              onFocus={() => setItemFocused(i)}
-              value={value}
-              {...restProps}
-            />
-          ))}
-        </div>
-      )}
+      <div
+        ref={dropdownRef}
+        className={`${styles.dropdown} ${
+          !show && !showDropdown ? styles.hide : ''
+        } ${dropdownDirection === 'up' ? styles.up : ''} ${className}`}
+        style={dropdownStyle}
+      >
+        {items.map(({ className, onClick, value, ...restProps }, i) => (
+          <input
+            ref={itemFocused === i ? (node) => node?.focus() : undefined}
+            key={String(value)}
+            type="button"
+            className={`${styles.button} ${className}`}
+            onClick={(e) => {
+              onSelect(String(value));
+              updateShowState(false);
+              const element: HTMLElement = childrenRef.current[0];
+              element.focus();
+              onClick && onClick(e);
+            }}
+            onFocus={() => setItemFocused(i)}
+            value={value}
+            disabled={!show && !showDropdown}
+            {...restProps}
+          />
+        ))}
+      </div>
     </AlertOutsideClick>
   );
 }

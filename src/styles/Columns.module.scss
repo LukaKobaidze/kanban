@@ -1,0 +1,175 @@
+.container {
+  --col-width: 280px;
+  --col-gap: 24px;
+  padding-left: 24px;
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+
+  @media (max-width: 650px) {
+    padding-left: 16px;
+  }
+}
+
+.all-tasks-wrapper {
+  display: flex;
+}
+
+.names-sticky {
+  position: sticky;
+  top: 0;
+}
+
+.names-wrapper {
+  position: relative;
+  display: flex;
+  margin: 12px 0;
+  background-color: var(--clr-bg);
+  z-index: 2;
+  width: min-content;
+  list-style: none;
+  transition: background-color var(--theme-transition);
+}
+
+.columns {
+  padding-left: 24px;
+  padding-right: 24px;
+  display: flex;
+  height: 100%;
+  overflow: auto;
+
+  & > div:not(:last-child) {
+    margin-right: 24px;
+  }
+}
+
+.tasks {
+  flex-shrink: 0;
+  padding-bottom: 24px;
+  width: var(--col-width);
+  margin-right: var(--col-gap);
+  list-style: none;
+}
+
+.task-item {
+  background-color: var(--clr-element);
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(54, 78, 126, 0.101545);
+  margin-bottom: 20px;
+  transition: background-color var(--theme-transition);
+
+  &.drag-deleting {
+    border: 1px solid var(--clr-destructive);
+    opacity: 0.8;
+  }
+  &:focus-visible {
+    & > .task-draggable::before {
+      background-color: var(--clr-primary);
+    }
+  }
+}
+
+.task-draggable {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 16px;
+
+  @media (max-width: 1000px) {
+    height: 23px;
+  }
+
+  &::before {
+    content: '';
+    height: 2px;
+    width: 50%;
+    background: none;
+    border-radius: 100vw;
+    transition: background-color var(--theme-transition);
+  }
+
+  &.active {
+    &::before {
+      background-color: var(--clr-primary);
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      &::before {
+        background-color: var(--clr-primary);
+      }
+    }
+  }
+}
+
+.task-btn {
+  color: inherit;
+  background: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0 23px 16px 23px;
+  font-family: inherit;
+  font-size: inherit;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  text-align: start;
+
+  @media (max-width: 1000px) {
+    padding: 0 16px 23px 16px;
+  }
+
+  &:focus-visible {
+    & > .task-btn__title {
+      color: var(--clr-primary);
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      & > .task-btn__title {
+        color: var(--clr-primary);
+      }
+    }
+  }
+
+  &__subtasks {
+    margin-top: 8px;
+    color: var(--clr-gray);
+  }
+}
+
+.new-column {
+  position: sticky;
+  top: 39px;
+  flex-shrink: 0;
+  font-family: inherit;
+  width: 280px;
+  height: calc(100vh - 185px);
+  background: var(--clr-new-column);
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--clr-gray);
+  cursor: pointer;
+
+  @media (max-width: 1000px) {
+    height: calc(100vh - 170px);
+  }
+
+  &:focus-visible {
+    color: var(--clr-primary);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: var(--clr-primary);
+    }
+  }
+}
+
+.padding-div {
+  padding-right: 24px;
+}

@@ -1,0 +1,65 @@
+div.container {
+  padding-top: 0;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.scrollbar-wrapper {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: calc(100vh - 245px);
+  padding-right: var(--modal-padding);
+  padding-left: var(--modal-padding);
+
+  & > * {
+    flex-shrink: 0;
+  }
+}
+
+.heading-wrapper {
+  padding-top: var(--modal-padding);
+  position: sticky;
+  top: calc(var(--modal-padding) / 2 * -1);
+  background-color: var(--clr-element);
+  padding-bottom: 12px;
+  z-index: 2;
+}
+
+.description-textarea {
+  min-height: 112px;
+  max-width: 100%;
+  min-width: 100%;
+}
+
+.label {
+  margin-top: 24px;
+  margin-bottom: 8px;
+  color: var(--clr-label);
+}
+
+.label-title {
+  margin-top: 12px;
+}
+
+.subtasks-list {
+  list-style: none;
+}
+
+.subtask {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.btn-add-subtask {
+  margin-bottom: 12px;
+}
+
+.footer-wrapper {
+  padding: 12px var(--modal-padding) 0 var(--modal-padding);
+}
+
+.btn-submit {
+  margin-top: 24px;
+  width: 100%;
+}

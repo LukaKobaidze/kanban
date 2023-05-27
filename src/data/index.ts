@@ -1,6 +1,15 @@
-import { ColumnType } from 'types';
+import { BoardType } from 'types';
 
-export const boards: { name: string; columns: ColumnType[] }[] = [
+export const columnColors = [
+  '#ff0038',
+  '#49C4E5',
+  '#8471F2',
+  '#67E2AE',
+  '#ff9f00',
+  '#fff44f',
+] as const;
+
+export const boards: BoardType = [
   {
     name: 'Platform Launch',
     columns: [
@@ -362,12 +371,12 @@ export const boards: { name: string; columns: ColumnType[] }[] = [
       },
       {
         name: 'Doing',
-        color: '#49C4E5',
+        color: '#8471F2',
         tasks: [],
       },
       {
         name: 'Done',
-        color: '#49C4E5',
+        color: '#67E2AE',
         tasks: [],
       },
     ],
@@ -377,7 +386,7 @@ export const boards: { name: string; columns: ColumnType[] }[] = [
     columns: [
       {
         name: 'Now',
-        color: '#49C4E5',
+        color: '#ff0038',
         tasks: [
           {
             title: 'Launch version one',
@@ -416,7 +425,7 @@ export const boards: { name: string; columns: ColumnType[] }[] = [
       },
       {
         name: 'Next',
-        color: '#49C4E5',
+        color: '#ff9f00',
         tasks: [],
       },
       {

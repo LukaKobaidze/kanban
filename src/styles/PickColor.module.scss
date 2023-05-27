@@ -1,0 +1,36 @@
+.popup {
+  display: flex;
+  align-items: center;
+  padding: 6px;
+
+  &__color {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+
+    &:not(:last-child) {
+      margin-right: 3px;
+    }
+  }
+}
+
+.button {
+  width: 21px;
+  height: 21px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  outline: 5px solid transparent;
+
+  &:focus-visible {
+    outline-color: rgba(255, 255, 255, 0.1);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      outline-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+}

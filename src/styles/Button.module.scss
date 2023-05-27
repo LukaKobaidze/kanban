@@ -2,57 +2,74 @@
   font-family: inherit;
   border-radius: 100vw;
   font-weight: 700;
-  padding-left: 1.5625em;
-  padding-right: 1.5625em;
   cursor: pointer;
   border: none;
 
-  &--1 {
+  &--primaryL,
+  &--primaryS {
+    background-color: var(--clr-primary);
+    color: var(--clr-white);
+
+    &:focus-visible {
+      background-color: var(--clr-primary-light);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background-color: var(--clr-primary-light);
+      }
+    }
+  }
+
+  &--primaryL {
     font-size: 0.9375em;
-    line-height: 1.1875em;
-    padding-top: 0.9375em;
-    padding-bottom: 0.9375em;
-    background-color: var(--clr-btn-1);
-    color: #ffffff;
-
-    &:hover {
-      background-color: var(--clr-btn-1-hover);
-    }
+    height: 48px;
   }
-  &--2 {
+
+  &--primaryS {
+    height: 40px;
     font-size: 0.8125em;
     line-height: 1.4375em;
-    padding-top: 0.5em;
-    padding-bottom: 0.5625em;
-    background-color: var(--clr-btn-2);
-    color: #ffffff;
-
-    &:hover {
-      background-color: var(--clr-btn-2-hover);
-    }
   }
-  &--3 {
+
+  &--secondary {
     font-size: 0.8125em;
     line-height: 1.4375em;
-    padding-top: 0.5em;
-    padding-bottom: 0.5625em;
-    background-color: var(--clr-btn-3);
-    color: var(--clr-1);
+    height: 40px;
+    background-color: var(--clr-btn-secondary);
+    color: var(--clr-primary);
 
-    &:hover {
-      background-color: var(--clr-btn-3-hover);
+    &:focus-visible {
+      background-color: var(--clr-btn-secondary-hover);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background-color: var(--clr-btn-secondary-hover);
+      }
     }
   }
-  &--4 {
+
+  &--destructive {
+    height: 40px;
     font-size: 0.8125em;
     line-height: 1.4375em;
-    padding-top: 0.5em;
-    padding-bottom: 0.5625em;
-    background-color: var(--clr-btn-4);
-    color: var(--clr-1);
+    background-color: var(--clr-destructive);
+    color: var(--clr-white);
 
-    &:hover {
-      background-color: var(--clr-btn-4-hover);
+    &:focus-visible {
+      background-color: var(--clr-destructive-light);
     }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background-color: var(--clr-destructive-light);
+      }
+    }
+  }
+
+  &--disabled {
+    opacity: 0.25;
+    pointer-events: none;
   }
 }

@@ -1,12 +1,22 @@
 .container {
-  padding: 32px;
-  width: 480px;
+  padding-right: 0 !important;
+  word-wrap: break-word;
 }
 
 .title-wrapper {
+  position: relative;
+  padding-bottom: 12px;
+  padding-right: var(--modal-padding);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 2;
+}
+
+.scrollbar-wrapper {
+  max-height: calc(100vh - 290px);
+  overflow-y: auto;
+  padding-right: var(--modal-padding);
 }
 
 .btn-ellipsis {
@@ -23,12 +33,12 @@
 }
 
 .dropdown-deletetask {
-  color: var(--clr-11) !important;
+  color: var(--clr-destructive) !important;
 }
 
 .description {
-  color: var(--clr-7);
-  margin-top: 24px;
+  color: var(--clr-gray);
+  margin-top: 12px;
 }
 
 .text-subtasks {
@@ -38,7 +48,7 @@
 
 .subtasks-list {
   margin-top: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
 }
 
 .subtask-item {
@@ -52,18 +62,19 @@
 .subtask {
   display: flex;
   align-items: center;
-  background-color: var(--clr-4);
+  background-color: var(--clr-bg);
   padding: 12px;
   border-radius: 4px;
   cursor: pointer;
 
-  &:hover:not(&--checked) {
-    background-color: rgba(99, 95, 199, 0.25);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(&--checked) {
+      background-color: rgba(99, 95, 199, 0.25);
+    }
   }
 
   &__title {
     margin-left: 16px;
-    color: #ffffff;
   }
 
   &--checked {
@@ -74,29 +85,11 @@
   }
 }
 
-.selection {
-  margin-top: 8px;
-  height: 40px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: inherit;
-  background: none;
-  border: 1px solid rgba(130, 143, 163, 0.25);
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 500;
-  color: #ffffff;
-  padding-left: 16px;
-  padding-right: 16.75px;
-  border-radius: 4px;
+.selection-wrapper {
+  padding-top: 12px;
+  padding-right: var(--modal-padding);
 
-  &.active {
-    border-color: var(--clr-1);
-  }
-
-  &__dropdown {
-    width: 100%;
+  @media (max-width: 525px) {
+    margin-bottom: 8px;
   }
 }

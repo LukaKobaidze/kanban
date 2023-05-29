@@ -4,7 +4,7 @@ import { boards as boardsInitial } from 'data';
 import { useLocalStorageState } from 'hooks';
 
 export default function useBoards() {
-  const [boards, setBoards] = useState(boardsInitial);
+  const [boards, setBoards] = useLocalStorageState('boards', boardsInitial);
   const [boardActive, setBoardActive] = useLocalStorageState('board-active', 0);
   const [viewTaskIndex, setViewTaskIndex] = useState<TaskIndexType | null>(null);
 
@@ -112,6 +112,7 @@ export default function useBoards() {
     });
     setViewTaskIndex(null);
   };
+
   const onChangeTaskStatus = (status: string) => {
     if (!viewTaskIndex) return;
 

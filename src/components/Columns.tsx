@@ -1,7 +1,8 @@
 import { forwardRef } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { ColumnType } from 'types';
-import { Text, ColumnName } from 'components';
+import { Text, Heading } from 'components';
+import ScrollContainer from 'react-indiana-drag-scroll';
 import headingStyles from 'styles/Heading.module.scss';
 import styles from 'styles/Columns.module.scss';
 
@@ -21,11 +22,25 @@ export default forwardRef<Ref, Props>(function Columns(props, ref) {
   const { data, setViewTaskIndex, onNewColumn } = props;
 
   return (
-    <div ref={ref} className={styles.container}>
+    <ScrollContainer
+      hideScrollbars={false}
+      ignoreElements="*[prevent-drag-scroll]"
+      className={styles.container}
+    >
       <div className={styles['names-sticky']}>
         <ul className={styles['names-wrapper']}>
           {data.map((item) => (
-            <ColumnName key={item.name} {...item} />
+            <li key={item.name}>
+              <div className={styles.name}>
+                <div
+                  className={styles['name__color-circle']}
+                  style={{ backgroundColor: item.color }}
+                />
+                <Heading variant="S" level="3" className={styles['name__heading']}>
+                  {item.name} ({item.tasks.length})
+                </Heading>
+              </div>
+            </li>
           ))}
         </ul>
       </div>
@@ -61,6 +76,7 @@ export default forwardRef<Ref, Props>(function Columns(props, ref) {
                             className={`${styles['task-draggable']} ${
                               snapshot.isDragging ? styles.active : ''
                             }`}
+                            prevent-drag-scroll="true"
                           />
                           <button
                             className={styles['task-btn']}
@@ -103,6 +119,6 @@ export default forwardRef<Ref, Props>(function Columns(props, ref) {
         </button>
         <div className={styles['padding-div']} />
       </div>
-    </div>
+    </ScrollContainer>
   );
 });

@@ -39,6 +39,8 @@ body.light {
   --clr-btn-secondary: #635fc71a;
   --clr-btn-secondary-hover: #635fc740;
   --clr-btn-sidebar-hover: #635fc71a;
+  --clr-scrollbar: hsl(220, 69%, 77%);
+  --clr-scrollbar-hover: hsl(220, 69%, 67%);
 }
 body.dark {
   --clr-bg: #20212c;
@@ -57,6 +59,8 @@ body.dark {
   --clr-btn-secondary: #ffffff;
   --clr-btn-secondary-hover: #ffffff;
   --clr-btn-sidebar-hover: #ffffff;
+  --clr-scrollbar: hsl(235, 16%, 35%);
+  --clr-scrollbar-hover: hsl(235, 16%, 55%);
 }
 
 *,
@@ -94,11 +98,11 @@ body {
   height: 0.5em;
 
   &-thumb {
-    background: hsl(193, 75%, 59%);
     border-radius: 100vw;
+    background: var(--clr-scrollbar);
 
     &:hover {
-      background: hsl(193, 75%, 45%);
+      background: var(--clr-scrollbar-hover);
     }
   }
 }

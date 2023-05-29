@@ -18,6 +18,7 @@ export default function ThemeSwitch(props: Props) {
         className={`${styles.switch} ${on ? styles.on : ''}`}
         onClick={onToggle}
         disabled={disabled}
+        aria-label="Switch Theme"
       />
       <IconDarkTheme />
     </div>

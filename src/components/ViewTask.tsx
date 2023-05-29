@@ -45,7 +45,11 @@ export default function ViewTask(props: Props) {
   };
 
   return (
-    <Modal className={styles.container} onCloseModal={onCloseModal}>
+    <Modal
+      className={styles.container}
+      onCloseModal={onCloseModal}
+      initialFocus={false}
+    >
       <div className={styles['title-wrapper']}>
         <Heading level="4" variant="L" className={styles.title}>
           {title}

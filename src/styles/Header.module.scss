@@ -86,9 +86,10 @@
   color: var(--clr-text);
 }
 
-.heading-popup {
+div.heading-popup {
   width: 50%;
   max-width: max-content;
+  word-wrap: break-word;
 }
 
 .btn-heading-mobile {

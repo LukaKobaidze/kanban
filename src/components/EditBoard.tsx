@@ -141,6 +141,7 @@ export default function EditBoard(props: Props) {
       ignoreKeyboardEscape={isDragging}
       onCloseModal={onCancel}
       className={styles.container}
+      initialFocus={false}
     >
       <div className={styles['scrollbar-wrapper']}>
         <div className={styles['heading-wrapper']}>
@@ -160,6 +161,7 @@ export default function EditBoard(props: Props) {
           error={editedNameError}
           onBlur={handleIsNameValid}
           onFocus={() => setEditedNameError('')}
+          placeholder="e.g. Web Design"
         />
 
         <label htmlFor="column" className={styles.label}>

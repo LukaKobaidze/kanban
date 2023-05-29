@@ -45,7 +45,6 @@ export default function App() {
   const boardStatuses = boardData && boardData.columns.map((col) => col.name);
 
   const handleShowSidebar = () => setSidebarExpanded(true);
-
   const handleHideSidebar = () => setSidebarExpanded(false);
 
   const handleToggleTheme = () => {
@@ -92,7 +91,7 @@ export default function App() {
         windowWidth={windowWidth}
         boardName={boardData?.name || ''}
         sidebarExpanded={sidebarExpanded}
-        disableAddNewTask={!boardData || boardData.columns.length === 0}
+        disableAddTask={!boardData || boardData.columns.length === 0}
         onAddTask={() => setIsAddingTask(true)}
         onEditBoard={() => setIsEditingBoard(true)}
         onDeleteBoard={() => setIsDeletingBoard(true)}
@@ -177,9 +176,8 @@ export default function App() {
           }}
           btnSubmitText="Create Task"
         />
-      ) : (
-        viewTaskData &&
-        (isDeletingTask ? (
+      ) : viewTaskData ? (
+        isDeletingTask ? (
           <DeleteModal
             heading="Delete this task?"
             description={`Are you sure you want to delete the '${viewTaskData.title}' task and its subtasks? This action cannot be reversed.`}
@@ -216,19 +214,21 @@ export default function App() {
             onCloseModal={() => dispatch.setViewTaskIndex(null)}
             {...viewTaskData}
           />
-        ))
-      )}
-
-      {windowWidth <= 650 && sidebarExpanded && !isCreatingBoard && (
-        <SidebarMobile
-          theme={theme}
-          boardNames={boardNames}
-          boardActive={state.boardActive}
-          setBoardActive={dispatch.setBoardActive}
-          onHideSidebar={handleHideSidebar}
-          onToggleTheme={handleToggleTheme}
-          onCreateBoard={() => setIsCreatingBoard(true)}
-        />
+        )
+      ) : (
+        windowWidth <= 650 &&
+        sidebarExpanded &&
+        !isCreatingBoard && (
+          <SidebarMobile
+            theme={theme}
+            boardNames={boardNames}
+            boardActive={state.boardActive}
+            setBoardActive={dispatch.setBoardActive}
+            onHideSidebar={handleHideSidebar}
+            onToggleTheme={handleToggleTheme}
+            onCreateBoard={() => setIsCreatingBoard(true)}
+          />
+        )
       )}
     </>
   );

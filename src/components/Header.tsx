@@ -19,7 +19,7 @@ interface Props {
   windowWidth: number;
   boardName: string;
   sidebarExpanded: boolean;
-  disableAddNewTask: boolean;
+  disableAddTask: boolean;
   onAddTask: () => void;
   onEditBoard: () => void;
   onDeleteBoard: () => void;
@@ -31,7 +31,7 @@ export default function Header(props: Props) {
     windowWidth,
     boardName,
     sidebarExpanded,
-    disableAddNewTask,
+    disableAddTask,
     onAddTask,
     onEditBoard,
     onDeleteBoard,
@@ -101,7 +101,7 @@ export default function Header(props: Props) {
           variant="primaryL"
           className={styles['btn-add-task']}
           onClick={onAddTask}
-          disabled={disableAddNewTask}
+          disabled={disableAddTask}
         >
           {windowWidth > 650 ? '+ Add New Task' : <IconAddTaskMobile />}
         </Button>
@@ -113,7 +113,7 @@ export default function Header(props: Props) {
           onSelect={handleEllipsisAction}
           className={styles['btn-ellipsis__dropdown']}
         >
-          <button className={styles['btn-ellipsis']}>
+          <button className={styles['btn-ellipsis']} aria-label="More">
             <IconVerticalEllipsis />
           </button>
         </Dropdown>

@@ -13,7 +13,7 @@ export default function BoardEmpty(props: Props) {
       <Heading level="3" variant="L" className={styles.heading}>
         This board is empty. Create a new column to get started.
       </Heading>
-      <Button variant="primaryL" onClick={onNewColumn} className={styles.button}>
+      <Button variant="primaryL" className={styles.button} onClick={onNewColumn}>
         + Add New Column
       </Button>
     </div>

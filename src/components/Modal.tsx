@@ -6,11 +6,18 @@ import styles from 'styles/Modal.module.scss';
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   onCloseModal: () => void;
   ignoreKeyboardEscape?: boolean;
+  initialFocus?: boolean;
 }
 
 export default function Modal(props: Props) {
-  const { onCloseModal, ignoreKeyboardEscape, className, children, ...restProps } =
-    props;
+  const {
+    onCloseModal,
+    ignoreKeyboardEscape,
+    initialFocus,
+    className,
+    children,
+    ...restProps
+  } = props;
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -31,7 +38,9 @@ export default function Modal(props: Props) {
   }, [ignoreKeyboardEscape, onCloseModal]);
 
   return (
-    <FocusTrap focusTrapOptions={{ initialFocus: false }}>
+    <FocusTrap
+      focusTrapOptions={initialFocus === false ? { initialFocus } : undefined}
+    >
       <div className={styles['wrapper-backdrop']}>
         <AlertOutsideClick
           event="mousedown"

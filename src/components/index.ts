@@ -1,7 +1,6 @@
 export { default as AlertOutsideClick } from './AlertOutsideClick';
 export { default as BoardEmpty } from './BoardEmpty';
 export { default as Button } from './Button';
-export { default as ColumnName } from './ColumnName';
 export { default as Columns } from './Columns';
 export { default as DeleteModal } from './DeleteModal';
 export { default as Dropdown } from './Dropdown';

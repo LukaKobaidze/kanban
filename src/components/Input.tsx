@@ -22,7 +22,6 @@ export default forwardRef<Ref, Props>(function Input(props, ref) {
           : `${styles.input} ${error ? styles.error : ''}`
       } ${className}`}
       type={type}
-     
       {...restProps}
     />
   );

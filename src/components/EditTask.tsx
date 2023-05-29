@@ -44,6 +44,7 @@ export default function EditTask(props: Props) {
 
   const isFirstRender = useRef(true);
   const [editedTitle, setEditedTitle] = useState(title);
+  const [editedTitleError, setEditedTitleError] = useState('');
   const [editedDescription, setEditedDescription] = useState(description);
   const [editedSubtasks, setEditedSubtasks] = useState(subtasks);
   const [editedStatus, setEditedStatus] = useState(status);
@@ -70,8 +71,18 @@ export default function EditTask(props: Props) {
     ]);
   };
 
+  const handleIsTitleValid = () => {
+    if (editedTitle.trim().length === 0) {
+      setEditedTitleError("Can't be empty");
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = () => {
-    if (editedTitle.trim().length === 0) return;
+    const isValid = handleIsTitleValid();
+
+    if (!isValid) return;
 
     onSubmit(
       {
@@ -111,7 +122,7 @@ export default function EditTask(props: Props) {
   }, [isAddingSubtask]);
 
   return (
-    <Modal onCloseModal={onCancel} className={styles.container}>
+    <Modal onCloseModal={onCancel} className={styles.container} initialFocus={false }>
       <div className={styles['scrollbar-wrapper']}>
         <div className={styles['heading-wrapper']}>
           <Heading level="4" variant="L">
@@ -132,6 +143,9 @@ export default function EditTask(props: Props) {
           value={editedTitle}
           onChange={(e) => setEditedTitle(e.target.value)}
           placeholder="e.g. Take coffee break"
+          onBlur={handleIsTitleValid}
+          onFocus={() => setEditedTitleError('')}
+          error={editedTitleError}
         />
 
         <label htmlFor="description" className={styles.label}>

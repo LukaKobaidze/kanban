@@ -26,7 +26,7 @@ export default function SidebarMobile(props: Props) {
   } = props;
 
   return (
-    <Modal onCloseModal={onHideSidebar} className={styles.container}>
+    <Modal initialFocus={false} onCloseModal={onHideSidebar} className={styles.container}>
       <Text tag="p" variant="M" className={sidebarStyles['text-allboards']}>
         ALL BOARDS ({boardNames.length})
       </Text>

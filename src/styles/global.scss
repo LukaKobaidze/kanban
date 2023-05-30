@@ -75,8 +75,11 @@ svg {
   display: block;
 }
 
-html {
+html,
+body,
+#root {
   overflow: hidden;
+  height: 100%;
 }
 
 body {
@@ -87,10 +90,7 @@ body {
 }
 
 #root {
-  height: 100vh;
-  max-height: -webkit-fill-available;
   display: flex;
-  overflow: hidden;
 }
 
 ::-webkit-scrollbar {

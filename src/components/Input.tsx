@@ -26,9 +26,7 @@ export default forwardRef<Ref, Props>(function Input(props, ref) {
     />
   );
   return type === 'checkbox' ? (
-    <div className={`${styles['checkbox-wrapper']} ${classNameWrapper}`}>
-      {inputJSX}
-    </div>
+    inputJSX
   ) : (
     <div className={`${styles['input-wrapper']} ${classNameWrapper}`}>
       {inputJSX}

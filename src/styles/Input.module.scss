@@ -39,11 +39,7 @@
   }
 }
 
-.checkbox-wrapper {
-}
-
 .checkbox {
-  appearance: none;
   display: block;
   width: 16px;
   height: 16px;
@@ -58,9 +54,5 @@
 
   &:active {
     border-color: rgba(130, 143, 163, 1);
-  }
-
-  &:checked {
-    appearance: auto;
   }
 }

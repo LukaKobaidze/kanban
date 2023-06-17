@@ -1,4 +1,6 @@
 import { useRef, useState, useLayoutEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { StoreState } from 'redux/store';
 import {
   DragDropContext,
   Draggable,
@@ -18,8 +20,6 @@ import {
   PickColor,
 } from 'components';
 import styles from 'styles/EditBoard.module.scss';
-import { useSelector } from 'react-redux';
-import { StoreState } from 'redux/store';
 
 interface Props {
   componentHeading: string;

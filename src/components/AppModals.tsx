@@ -45,7 +45,6 @@ export default function AppModals(props: Props) {
     <>
       {showModal === 'createBoard' ? (
         <EditBoardModal
-          boards={boards}
           componentHeading="Add New Board"
           btnSubmitText="Create New Board"
           onCancel={() => setShowModal(null)}
@@ -56,7 +55,6 @@ export default function AppModals(props: Props) {
         />
       ) : showModal === 'editBoard' ? (
         <EditBoardModal
-          boards={boards}
           componentHeading="Edit Board"
           btnSubmitText="Save Changes"
           onCancel={() => setShowModal(null)}

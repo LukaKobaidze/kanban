@@ -18,9 +18,10 @@ import {
   PickColor,
 } from 'components';
 import styles from 'styles/EditBoard.module.scss';
+import { useSelector } from 'react-redux';
+import { StoreState } from 'redux/store';
 
 interface Props {
-  boards: BoardType[];
   componentHeading: string;
   onCancel: () => void;
   onSubmit: (board: BoardType) => void;
@@ -30,15 +31,10 @@ interface Props {
 }
 
 export default function EditBoardModal(props: Props) {
-  const {
-    boards,
-    componentHeading,
-    btnSubmitText,
-    onCancel,
-    onSubmit,
-    name,
-    columns,
-  } = props;
+  const { componentHeading, btnSubmitText, onCancel, onSubmit, name, columns } =
+    props;
+
+  const { boards } = useSelector((state: StoreState) => state.boards);
 
   const [editedName, setEditedName] = useState(name || '');
   const [editedNameError, setEditedNameError] = useState('');

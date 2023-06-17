@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { StoreState } from 'redux/store';
 import {
   IconAddTaskMobile,
   IconChevronDown,
@@ -17,9 +19,7 @@ const ACTIONS = {
 
 interface Props {
   windowWidth: number;
-  boardName: string;
   sidebarExpanded: boolean;
-  disableAddTask: boolean;
   onAddTask: () => void;
   onEditBoard: () => void;
   onDeleteBoard: () => void;
@@ -29,15 +29,14 @@ interface Props {
 export default function Header(props: Props) {
   const {
     windowWidth,
-    boardName,
     sidebarExpanded,
-    disableAddTask,
     onAddTask,
     onEditBoard,
     onDeleteBoard,
     onShowSidebar,
   } = props;
 
+  const { boards, boardActive } = useSelector((state: StoreState) => state.boards);
   const [showHeadingPopup, setShowHeadingPopup] = useState(false);
 
   const handleEllipsisAction = (action: string) => {
@@ -47,6 +46,8 @@ export default function Header(props: Props) {
       onDeleteBoard();
     }
   };
+
+  const boardName = boards[boardActive]?.name || '';
 
   return (
     <header
@@ -101,7 +102,7 @@ export default function Header(props: Props) {
           variant="primaryL"
           className={styles['btn-add-task']}
           onClick={onAddTask}
-          disabled={disableAddTask}
+          disabled={!boards.length || boards[boardActive].columns.length === 0}
         >
           {windowWidth > 650 ? '+ Add New Task' : <IconAddTaskMobile />}
         </Button>

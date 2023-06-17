@@ -1,23 +1,15 @@
 import { useEffect, useLayoutEffect, useRef } from 'react';
-import { Droppable } from 'react-beautiful-dnd';
-import {
-  IconBoard,
-  IconDelete,
-  IconHideSidebar,
-  IconShowSidebar,
-  Logo,
-} from 'assets';
+import { useSelector, useDispatch } from 'react-redux';
+import { StoreState } from 'redux/store';
+import { updateBoardActive } from 'redux/boards.slice';
+import { IconBoard, IconHideSidebar, IconShowSidebar, Logo } from 'assets';
 import { ThemeType } from 'types';
 import { Text, Button, ThemeSwitch } from 'components';
 import styles from 'styles/Sidebar.module.scss';
 
 interface Props {
   expanded: boolean;
-  boardNames: string[];
-  boardActive: number;
-  draggingSourceId: string;
   theme: ThemeType;
-  setBoardActive: React.Dispatch<React.SetStateAction<number>>;
   onToggleTheme: () => void;
   onShowSidebar: () => void;
   onHideSidebar: () => void;
@@ -27,16 +19,15 @@ interface Props {
 export default function Sidebar(props: Props) {
   const {
     expanded,
-    boardNames,
-    boardActive,
-    draggingSourceId,
     theme,
-    setBoardActive,
     onToggleTheme,
     onHideSidebar,
     onShowSidebar,
     onCreateBoard,
   } = props;
+
+  const { boards, boardActive } = useSelector((state: StoreState) => state.boards);
+  const dispatch = useDispatch();
 
   const hiddenDiv = useRef<HTMLDivElement>(null);
   const activeBoardButton = useRef<HTMLButtonElement>(null);
@@ -49,7 +40,7 @@ export default function Sidebar(props: Props) {
 
   useLayoutEffect(() => {
     activeBoardButton.current?.scrollIntoView();
-  }, [boardNames]);
+  }, [boards.length]);
 
   return (
     <aside className={`${styles.sidebar} ${expanded ? styles.open : ''}`}>
@@ -63,11 +54,11 @@ export default function Sidebar(props: Props) {
 
         <div className={styles['boards-wrapper']}>
           <Text tag="p" variant="M" className={styles['text-allboards']}>
-            ALL BOARDS ({boardNames.length})
+            ALL BOARDS ({boards.length})
           </Text>
           <ul className={styles['boards-list']}>
             <div className={styles['boards-scrollable']}>
-              {boardNames.map((name, i) => (
+              {boards.map(({ name }, i) => (
                 <li key={name} className={styles['board-item']}>
                   <Button
                     ref={i === boardActive ? activeBoardButton : undefined}
@@ -75,7 +66,7 @@ export default function Sidebar(props: Props) {
                     className={`${styles.button} ${
                       i === boardActive ? styles.active : ''
                     }`}
-                    onClick={() => setBoardActive(i)}
+                    onClick={() => dispatch(updateBoardActive(i))}
                     disabled={!expanded}
                   >
                     <IconBoard className={styles['button__icon']} />
@@ -96,20 +87,6 @@ export default function Sidebar(props: Props) {
             </li>
           </ul>
         </div>
-        <Droppable droppableId="delete">
-          {(provided, snapshot) => (
-            <div
-              className={`${styles['droppable-delete']} ${
-                draggingSourceId ? styles.show : ''
-              } ${snapshot.isDraggingOver ? styles.dragover : ''}`}
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
-              <IconDelete className={styles['droppable-delete__icon']} />
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
 
         <ThemeSwitch
           on={theme === 'dark'}

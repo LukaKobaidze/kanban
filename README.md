@@ -41,6 +41,8 @@ Users should be able to:
 - [React](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Sass](https://sass-lang.com/)
+- [React Redux](https://react-redux.js.org/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
 - [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
 - [react-indiana-drag-scroll](https://github.com/norserium/react-indiana-drag-scroll)
 - [focus-trap-react](https://github.com/focus-trap/focus-trap-react)

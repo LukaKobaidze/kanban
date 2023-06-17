@@ -29,7 +29,7 @@ interface Props extends TaskType {
   btnSubmitText?: string;
 }
 
-export default function EditTask(props: Props) {
+export default function EditTaskModal(props: Props) {
   const {
     title,
     description,

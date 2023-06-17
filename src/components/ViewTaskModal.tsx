@@ -1,3 +1,5 @@
+import { useDispatch } from 'react-redux';
+import { changeTaskStatus, updateSubtaskCompleted } from 'redux/boards.slice';
 import { TaskType } from 'types';
 import { IconVerticalEllipsis } from 'assets';
 import { Modal, Heading, Text, Input, Dropdown, StatusSelection } from 'components';
@@ -13,12 +15,10 @@ interface Props extends TaskType {
   allStatuses: string[];
   onEdit: () => void;
   onDelete: () => void;
-  onChangeStatus: (status: string) => void;
-  onChangeSubtaskCompleted: (subtask: number, isCompleted: boolean) => void;
   onCloseModal: () => void;
 }
 
-export default function ViewTask(props: Props) {
+export default function ViewTaskModal(props: Props) {
   const {
     status,
     allStatuses,
@@ -26,14 +26,19 @@ export default function ViewTask(props: Props) {
     description,
     subtasks,
     onCloseModal,
-    onChangeSubtaskCompleted,
-    onChangeStatus,
     onEdit,
     onDelete,
   } = props;
 
+  const dispatch = useDispatch();
+
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChangeSubtaskCompleted(Number(e.currentTarget.value), e.currentTarget.checked);
+    dispatch(
+      updateSubtaskCompleted({
+        subtask: Number(e.currentTarget.value),
+        isCompleted: e.currentTarget.checked,
+      })
+    );
   };
 
   const handleEllipsisAction = (value: string) => {
@@ -118,7 +123,7 @@ export default function ViewTask(props: Props) {
           labelText="Current Status"
           status={status}
           allStatuses={allStatuses}
-          onChangeStatus={onChangeStatus}
+          onChangeStatus={(status) => dispatch(changeTaskStatus(status))}
         />
       </div>
     </Modal>

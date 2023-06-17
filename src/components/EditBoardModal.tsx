@@ -20,16 +20,16 @@ import {
 import styles from 'styles/EditBoard.module.scss';
 
 interface Props {
-  boards: BoardType;
+  boards: BoardType[];
   componentHeading: string;
   onCancel: () => void;
-  onSubmit: (name: string, columns: ColumnType[]) => void;
+  onSubmit: (board: BoardType) => void;
   name?: string;
   columns?: ColumnType[];
   btnSubmitText?: string;
 }
 
-export default function EditBoard(props: Props) {
+export default function EditBoardModal(props: Props) {
   const {
     boards,
     componentHeading,
@@ -105,10 +105,10 @@ export default function EditBoard(props: Props) {
 
     if (!isValid) return;
 
-    onSubmit(
-      editedName,
-      editedColumns.filter((col) => col.name.trim().length !== 0)
-    );
+    onSubmit({
+      name: editedName,
+      columns: editedColumns.filter((col) => col.name.trim().length !== 0),
+    });
   };
 
   const handleDragStart = () => {

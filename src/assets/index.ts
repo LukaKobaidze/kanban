@@ -5,7 +5,6 @@ export { ReactComponent as IconChevronDown } from './icon-chevron-down.svg';
 export { ReactComponent as IconChevronUp } from './icon-chevron-up.svg';
 export { ReactComponent as IconCross } from './icon-cross.svg';
 export { ReactComponent as IconDarkTheme } from './icon-dark-theme.svg';
-export { ReactComponent as IconDelete } from './icon-delete.svg';
 export { ReactComponent as IconDragHandle } from './icon-drag-handle.svg';
 export { ReactComponent as IconHideSidebar } from './icon-hide-sidebar.svg';
 export { ReactComponent as IconLightTheme } from './icon-light-theme.svg';

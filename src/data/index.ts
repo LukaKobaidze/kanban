@@ -9,7 +9,7 @@ export const columnColors = [
   '#fff44f',
 ] as const;
 
-export const boards: BoardType = [
+export const boards: BoardType[] = [
   {
     name: 'Platform Launch',
     columns: [

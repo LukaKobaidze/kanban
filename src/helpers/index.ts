@@ -1,15 +1,5 @@
 import { columnColors } from 'data';
-import { ColumnType, SubtaskType, ThemeType } from 'types';
-
-export function getThemeInitial(): ThemeType {
-  if (
-    window.matchMedia &&
-    window.matchMedia('(prefers-color-scheme: light)').matches
-  ) {
-    return 'light';
-  }
-  return 'dark';
-}
+import { ColumnType, SubtaskType } from 'types';
 
 export function getColumnInitial(): ColumnType {
   return {

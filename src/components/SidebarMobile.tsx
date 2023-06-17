@@ -1,38 +1,37 @@
-import { IconBoard } from 'assets';
+import { useSelector, useDispatch } from 'react-redux';
+import { StoreState } from 'redux/store';
+import { updateBoardActive } from 'redux/boards.slice';
 import { ThemeType } from 'types';
+import { IconBoard } from 'assets';
 import { Modal, ThemeSwitch, Text, Button } from 'components';
 import sidebarStyles from 'styles/Sidebar.module.scss';
 import styles from 'styles/SidebarMobile.module.scss';
 
 interface Props {
   theme: ThemeType;
-  boardNames: string[];
-  boardActive: number;
-  setBoardActive: React.Dispatch<React.SetStateAction<number>>;
   onToggleTheme: () => void;
   onHideSidebar: () => void;
   onCreateBoard: () => void;
 }
 
 export default function SidebarMobile(props: Props) {
-  const {
-    theme,
-    boardNames,
-    boardActive,
-    setBoardActive,
-    onToggleTheme,
-    onHideSidebar,
-    onCreateBoard,
-  } = props;
+  const { theme, onToggleTheme, onHideSidebar, onCreateBoard } = props;
+
+  const { boards, boardActive } = useSelector((state: StoreState) => state.boards);
+  const dispatch = useDispatch();
 
   return (
-    <Modal initialFocus={false} onCloseModal={onHideSidebar} className={styles.container}>
+    <Modal
+      initialFocus={false}
+      onCloseModal={onHideSidebar}
+      className={styles.container}
+    >
       <Text tag="p" variant="M" className={sidebarStyles['text-allboards']}>
-        ALL BOARDS ({boardNames.length})
+        ALL BOARDS ({boards.length})
       </Text>
       <ul className={styles['boards-list']}>
         <div className={styles['boards-scrollable']}>
-          {boardNames.map((name, i) => (
+          {boards.map(({ name }, i) => (
             <li key={name} className={sidebarStyles['board-item']}>
               <Button
                 variant="primaryL"
@@ -40,7 +39,7 @@ export default function SidebarMobile(props: Props) {
                   i === boardActive ? sidebarStyles.active : ''
                 }`}
                 onClick={() => {
-                  setBoardActive(i);
+                  dispatch(updateBoardActive(i));
                   onHideSidebar();
                 }}
               >

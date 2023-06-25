@@ -7,6 +7,10 @@ const store = configureStore({
   },
 });
 
-export type StoreState = ReturnType<typeof store.getState>
+store.subscribe(() => {
+  localStorage.setItem('reduxBoards', JSON.stringify(store.getState().boards));
+});
+
+export type StoreState = ReturnType<typeof store.getState>;
 
 export default store;

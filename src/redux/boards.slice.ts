@@ -6,7 +6,11 @@ const initialState: {
   boards: BoardType[];
   boardActive: number;
   taskActive: TaskLocation | null;
-} = { boards: boardsInitial, boardActive: 0, taskActive: null };
+} = JSON.parse(localStorage.getItem('reduxBoards') || '0') || {
+  boards: boardsInitial,
+  boardActive: 0,
+  taskActive: null,
+};
 
 export const boardsSlice = createSlice({
   name: 'boards',

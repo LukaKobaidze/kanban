@@ -193,6 +193,8 @@ export default function EditBoardModal(props: Props) {
                           className={styles['column__input']}
                           onChange={(e) => handleColumnNameChange(i, e.target.value)}
                           onRemove={() => handleRemoveColumn(i)}
+                          id={'column' + (i + 1)}
+                          buttonTitle={`Remove '${column.name}'`}
                         />
                         <PickColor
                           color={column.color}

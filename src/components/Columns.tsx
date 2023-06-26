@@ -79,6 +79,7 @@ export default function Columns(props: Props) {
                 <Droppable key={name} droppableId={String(colIndex)}>
                   {(provided) => (
                     <ul
+                      id={name}
                       className={styles.tasks}
                       ref={provided.innerRef}
                       {...provided.droppableProps}

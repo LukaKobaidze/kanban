@@ -122,7 +122,7 @@ export default function EditTaskModal(props: Props) {
   }, [isAddingSubtask]);
 
   return (
-    <Modal onCloseModal={onCancel} className={styles.container} initialFocus={false }>
+    <Modal onCloseModal={onCancel} className={styles.container} initialFocus={false}>
       <div className={styles['scrollbar-wrapper']}>
         <div className={styles['heading-wrapper']}>
           <Heading level="4" variant="L">
@@ -188,6 +188,7 @@ export default function EditTaskModal(props: Props) {
                               ? lastSubtaskInput
                               : undefined
                           }
+                          id={'subtask' + (i + 1)}
                           value={subtask.title}
                           onChange={(e) =>
                             handleSubtaskTitleChange(i, e.target.value)
@@ -198,6 +199,7 @@ export default function EditTaskModal(props: Props) {
                               ? 'e.g. Make coffee'
                               : 'e.g. Drink coffee & smile'
                           }
+                          buttonTitle={`Remove Subtask ${i + 1}`}
                         />
                       </li>
                     )}

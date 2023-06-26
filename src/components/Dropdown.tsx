@@ -165,6 +165,7 @@ export default function Dropdown(props: Props) {
           !show && !showDropdown ? styles.hide : ''
         } ${dropdownDirection === 'up' ? styles.up : ''} ${className}`}
         style={dropdownStyle}
+        id={show || showDropdown ? 'dropdown' : undefined}
       >
         {items.map(({ className, onClick, value, ...restProps }, i) => (
           <input

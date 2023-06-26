@@ -46,6 +46,7 @@ export default function Modal(props: Props) {
           event="mousedown"
           onOutsideClick={onCloseModal}
           className={`${styles.modal} ${className}`}
+          id="modal"
           {...restProps}
         >
           {children}

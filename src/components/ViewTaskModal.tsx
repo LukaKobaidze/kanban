@@ -67,7 +67,7 @@ export default function ViewTaskModal(props: Props) {
           onSelect={handleEllipsisAction}
           className={styles['btn-ellipsis__dropdown']}
         >
-          <button className={styles['btn-ellipsis']}>
+          <button id="ellipsis" className={styles['btn-ellipsis']}>
             <IconVerticalEllipsis />
           </button>
         </Dropdown>
